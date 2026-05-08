@@ -16,6 +16,8 @@ AUTOGRADER CONTRACT (DO NOT MODIFY SIGNATURES):
 
 import math
 import copy
+import os
+import gdown
 from typing import Optional, Tuple
 
 import torch
@@ -126,7 +128,7 @@ class MultiHeadAttention(nn.Module):
         self.num_heads = num_heads
         self.d_k       = d_model // num_heads   # depth per head
         raise NotImplementedError
-
+    
     def forward(
         self,
         query: torch.Tensor,
@@ -368,9 +370,13 @@ class Transformer(nn.Module):
         num_heads: int   = 8,
         d_ff:      int   = 2048,
         dropout:   float = 0.1,
+        checkpoint_path: str = None,
     ) -> None:
         super().__init__()
         # TODO: Instantiate 
+        # init should also load the model weights if checkpoint path provided, download the .pth file like this
+        if checkpoint_path is not None:
+            gdown.download(id="<.pth drive id>", output=checkpoint_path, quiet=False)
         raise NotImplementedError
 
     # ── AUTOGRADER HOOKS ── keep these signatures exactly ─────────────
@@ -432,5 +438,19 @@ class Transformer(nn.Module):
 
         Returns:
             logits : shape [batch, tgt_len, tgt_vocab_size]
+        """
+        raise NotImplementedError
+
+
+    def infer(self, src_sentence: str) -> str:
+        """
+        Translates a German sentence to English using greedy autoregressive decoding.
+        
+        Args:
+            src_sentence: The raw German text.
+            
+            
+        Returns:
+            The fully translated English string, detokenized and clean.
         """
         raise NotImplementedError

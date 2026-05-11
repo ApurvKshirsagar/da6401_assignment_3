@@ -504,7 +504,7 @@ class Transformer(nn.Module):
         # init should also load the model weights if checkpoint path provided,
         # download the .pth file like this
         if checkpoint_path is not None:
-            gdown.download(id="<.pth drive id>", output=checkpoint_path, quiet=False)
+            gdown.download(id="1v0b0EJ9TngjfI4jiQVEFFl7zZYPBc2Vu", output=checkpoint_path, quiet=False)
             ckpt = torch.load(checkpoint_path, map_location='cpu')
             self.load_state_dict(ckpt['model_state_dict'])
 

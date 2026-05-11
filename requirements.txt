@@ -6,3 +6,6 @@ wandb
 datasets
 spacy
 tqdm
+gdown 
+bleu
+nltk

@@ -398,14 +398,14 @@ def run_training_experiment() -> None:
 
     # ── Hyperparameters ───────────────────────────────────────────────
     config = dict(
-        d_model      = 512,
-        N            = 6,
+        d_model      = 256,
+        N            = 3,
         num_heads    = 8,
-        d_ff         = 2048,
+        d_ff         = 512,
         dropout      = 0.1,
-        warmup_steps = 4000,
+        warmup_steps = 2000,
         batch_size   = 128,
-        num_epochs   = 20,
+        num_epochs   = 50,
         smoothing    = 0.1,
         min_freq     = 2,
     )

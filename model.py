@@ -472,28 +472,6 @@ class Transformer(nn.Module):
             ckpt = torch.load(checkpoint_path, map_location='cpu', weights_only=False)
             self.load_state_dict(ckpt['model_state_dict'])
 
-            # Load spacy and vocab so infer() works standalone
-            import spacy
-            from datasets import load_dataset
-            from collections import Counter
-
-            self.spacy_de = spacy.load("de_core_news_sm")
-            self.spacy_en = spacy.load("en_core_web_sm")
-
-            # Rebuild vocab from training data (same as dataset.py)
-            SPECIALS = ['<unk>', '<pad>', '<sos>', '<eos>']
-            train_raw = load_dataset("bentrevett/multi30k", split='train')
-            de_counter, en_counter = Counter(), Counter()
-            for item in train_raw:
-                de_counter.update([t.text.lower() for t in self.spacy_de.tokenizer(item['de'])])
-                en_counter.update([t.text.lower() for t in self.spacy_en.tokenizer(item['en'])])
-
-            src_itos = SPECIALS + [w for w, c in de_counter.items() if c >= 2]
-            tgt_itos = SPECIALS + [w for w, c in en_counter.items() if c >= 2]
-            self.src_stoi = {w: i for i, w in enumerate(src_itos)}
-            self.tgt_stoi = {w: i for i, w in enumerate(tgt_itos)}
-            self.tgt_itos = tgt_itos
-
     def _build(
         self,
         src_vocab_size: int,

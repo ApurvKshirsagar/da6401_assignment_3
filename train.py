@@ -457,6 +457,11 @@ def run_training_experiment() -> None:
     n_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"  model parameters: {n_params:,}")
 
+    # Store vocab in model.config so it's saved with every checkpoint
+    model.config['src_stoi'] = train_ds.src_stoi
+    model.config['tgt_stoi'] = train_ds.tgt_stoi
+    model.config['tgt_itos'] = train_ds.tgt_itos
+
     # 5. Optimizer (paper: β1=0.9, β2=0.98, ε=1e-9)
     optimizer = torch.optim.Adam(
         model.parameters(), lr=1.0, betas=(0.9, 0.98), eps=1e-9

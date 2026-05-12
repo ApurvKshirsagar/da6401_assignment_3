@@ -621,6 +621,8 @@ class Transformer(nn.Module):
             except OSError:
                 _spacy.cli.download('de_core_news_sm')
                 self.spacy_de = _spacy.load('de_core_news_sm')
+
+        tokens = [tok.text.lower() for tok in self.spacy_de.tokenizer(src_sentence)]
         src_ids = (
             [self.src_stoi.get('<sos>', 2)]
             + [self.src_stoi.get(t, self.src_stoi.get('<unk>', 0)) for t in tokens]

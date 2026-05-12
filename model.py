@@ -466,7 +466,11 @@ class Transformer(nn.Module):
             self.tgt_itos = cfg.get('tgt_itos', [])
             # Load spacy tokenizer
             import spacy as _spacy
-            self.spacy_de = _spacy.load('de_core_news_sm')
+            try:
+                self.spacy_de = _spacy.load('de_core_news_sm')
+            except OSError:
+                _spacy.cli.download('de_core_news_sm')
+                self.spacy_de = _spacy.load('de_core_news_sm')
             return
 
         self._build(src_vocab_size, tgt_vocab_size, d_model, N, num_heads, d_ff, dropout)
@@ -612,7 +616,11 @@ class Transformer(nn.Module):
         # Ensure spacy tokenizer is available (fallback if not set via attribute)
         if not hasattr(self, 'spacy_de'):
             import spacy as _spacy
-            self.spacy_de = _spacy.load('de_core_news_sm')
+            try:
+                self.spacy_de = _spacy.load('de_core_news_sm')
+            except OSError:
+                _spacy.cli.download('de_core_news_sm')
+                self.spacy_de = _spacy.load('de_core_news_sm')
         src_ids = (
             [self.src_stoi.get('<sos>', 2)]
             + [self.src_stoi.get(t, self.src_stoi.get('<unk>', 0)) for t in tokens]

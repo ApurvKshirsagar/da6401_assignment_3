@@ -4,7 +4,7 @@
 
 ## Links
 
-- **WandB Report:** `[PLACEHOLDER — add your public W&B report link here]`
+- **WandB Report:** https://wandb.ai/ce22b042-iit-madras/da6401-a3/reports/DA6401-Assignment-3--VmlldzoxNjg4MzM4OA?accessToken=tu3g1xgwcsbe488zsqz2u1s9smsl3exrxm22nj1opjcnqo5i7fw7y5q3kvfb5s96
 - **GitHub Repo:** https://github.com/ApurvKshirsagar/da6401_assignment_3
 
 ---
